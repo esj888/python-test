@@ -33,20 +33,28 @@ resources = {
 
 debug = False  # turn on/off debug statements
 validItem = True
+drink_paid = False
 
 
 def check_resources():
-    if resources["water"] < MENU[coffeeType]["ingredients"]["water"]:
-        print("There is not enough water.")
-        return False
-    elif resources["milk"] < MENU[coffeeType]["ingredients"]["milk"]:
-        print("There is not enough milk.")
-        return False
-    elif resources["coffee"] < MENU[coffeeType]["ingredients"]["coffee"]:
-        print("There is not enough coffee.")
-        return False
-    else:
-        return True
+    # if resources["water"] < MENU[coffeeType]["ingredients"]["water"]:
+    #     print("There is not enough water.")
+    #     return False
+    # elif resources["milk"] < MENU[coffeeType]["ingredients"]["milk"]:  # error if choosing espresso
+    #     print("There is not enough milk.")
+    #     return False
+    # elif resources["coffee"] < MENU[coffeeType]["ingredients"]["coffee"]:
+    #     print("There is not enough coffee.")
+    #     return False
+    # else:
+    #     return True
+
+    for x in MENU[coffeeType]["ingredients"]:
+        if resources[x] < MENU[coffeeType]["ingredients"][x]:
+            print(f"There is not enough {x}.")
+            return False
+
+    return True
 
 
 def process_coins():
@@ -60,7 +68,7 @@ def process_coins():
 
     if paid_amt >= MENU[coffeeType]["cost"]:
         change = round((paid_amt - MENU[coffeeType]["cost"]), 2)
-        resources["money"] += MENU[coffeeType]["cost"]
+        resources["money"] += MENU[coffeeType]["cost"]             # add money to machine
         print("{:.2f}".format(resources["money"]))
         format_change = "{:.2f}".format(change)
         print("Thank you. Here is your change. $ ", format_change)
@@ -68,6 +76,24 @@ def process_coins():
     else:
         print("Sorry that's not enough money.")
         return False
+
+
+def make_coffee():
+    # resources["water"] = resources["water"] - MENU[coffeeType]["ingredients"]["water"]
+    # resources["milk"] = resources["milk"] - MENU[coffeeType]["ingredients"]["milk"]
+    # resources["coffee"] = resources["coffee"] - MENU[coffeeType]["ingredients"]["coffee"]
+
+    for x in MENU[coffeeType]["ingredients"]:
+        resources[x] = resources[x] - MENU[coffeeType]["ingredients"][x]
+
+
+def print_report():
+    print("Resource Report")
+    print("---------------")
+    print("Water: ", resources["water"], "ml")
+    print("Milk: ", resources["milk"], "ml")
+    print("Coffee: ", resources["coffee"], "g")
+    print("Money: $", resources["money"])
 
 
 while validItem:
@@ -88,14 +114,17 @@ while validItem:
     if validItem:
         enough_resources = check_resources()
         if enough_resources:
-            process_coins()
+            print("==> before")
+            print_report()                     # report before
+            drink_paid = process_coins()
         else:
             print("Not enough supply")
+
+        if drink_paid:
+            make_coffee()
+            print("==> after")
+            print_report()                     # report after
+
     else:
         print("That is not a valid drink... goodbye!!")
 
-
-    # TODO check transaction successful
-    # TODO make coffee
-    # TODO turn off machine
-    # TODO print report
