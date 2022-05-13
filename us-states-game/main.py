@@ -4,6 +4,7 @@
 # 4. use a loop to allow the user to keep guessing
 # 5. record the correct guesses in a list
 # 6. keep track of the score
+# 7. write states_to_learn.csv with states that were missed
 
 import turtle
 import pandas
@@ -18,6 +19,11 @@ no_of_guesses = 0
 no_of_correct = 0
 all_states = pandas.read_csv("50_states.csv")
 states = all_states["state"]
+
+# testing deleting row
+# del_idx = states[states == "Hawaii"].index
+# missed_states = states.drop(del_idx)
+# print(missed_states)
 
 
 def write_state(name_of_state):
@@ -63,6 +69,9 @@ for x in range(50):
             # write_state("Texas")  # ******************* debug manual works
             # write_state(test_str) # debug
             write_state(state)
+            del_idx = states[states == state].index
+            states = states.drop(del_idx)  # remove correct state
+
             # write_state(name_of_state=answer_state.lower()) # error ***********************
             # print(type(answer_state.lower()))
             # print(type("Texas"))
@@ -90,7 +99,7 @@ for x in range(50):
     # t.write("Hawaii")
 
 # turtle.mainloop()
-screen.exitonclick()         # needed to be outside the loop
-
-
+# screen.exitonclick()         # needed to be outside the loop
+print(states)
+states.to_csv("states_to_learn.csv")
 
