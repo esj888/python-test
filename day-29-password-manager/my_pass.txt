@@ -1,0 +1,5 @@
+website1 | email@gmail.com | passwordabc
+website2 | email@disney.com | mickeymouse
+microsoft | email@gmail.com | msftpassword
+intel website | email@gmail.com | intcpassword
+python charm | email@gmail.com | pythonlang123
