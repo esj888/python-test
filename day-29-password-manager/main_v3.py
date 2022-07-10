@@ -13,13 +13,26 @@ WHITE = "#FFFFFF"
 
 # ---------------------------- Search password ------------------------------- #
 def find_password():
+    website = website_box.get()
     print("find password function")
-    with open("my_pass.json", "r") as pw_file:
-        data = json.load(pw_file)
-
-    print(data)                     # dictionary of passwords
-    for sites in data.keys():
-        print(sites)
+    try:
+        with open("my_pass.json", "r") as pw_file:
+            data_dict = json.load(pw_file)
+    except FileNotFoundError:
+        print("file doesn't exist.")
+        messagebox.showerror(title='error 888', message="File doesn't exist.")
+    else:
+        print(data_dict)                     # dictionary contains website and email, password.
+        # for sites in data.keys():
+        #    print(sites)
+        if website in data_dict:
+            print(website, " found")
+            email = data_dict[website]["email"]
+            pass1 = data_dict[website]["password"]
+            messagebox.showinfo(title=website, message=f"email: {email} \npassword: {pass1}")
+        else:
+            print(website, " not found!!")
+            messagebox.showinfo(title='not found', message="Website not found.")
 
 
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
