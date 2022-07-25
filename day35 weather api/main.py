@@ -1,12 +1,12 @@
 import requests
 from twilio.rest import Client
 
-account_sid = "AC5150af91ac1168f07665c86ffb12d7ed"
-auth_token = "1666e4fd131f638fcaabfbdc3bc1b86d"
+account_sid = "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz"  # deleted
+auth_token = "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz"  # deleted
 
 
 parameters = {
-    'appid': "105b39a7386bdc2a4b647d27360bb09c",
+    'appid': "zzzzzzzzzzzzzzzzzzzzzzzzzzz",  # deleted
     # 'lat': "21.306944",   # honolulu
     # 'lon': "-157.858337", # honolulu
     'lat': "40.440624",   # rainy test
@@ -23,8 +23,8 @@ def send_sms():
     message = client.messages \
         .create(
             body="It's going to rain today ☔",
-            from_='+13257700650',
-            to='+18083839709'
+            from_='+18885559876',  # deleted
+            to='+18885551234'  # deleted
         )
 
     # print(message.sid)
