@@ -18,5 +18,10 @@ def say_bye():
     return "Bye"
 
 
+@app.route('/username/<name>/<int:age>')
+def greet(name, age):
+    return f"hello there {name}, you are {age} years old"
+
+
 if __name__ == "__main__":    # app is run within hello.py
     app.run()   # run flask within this code instead of 'flask run'
